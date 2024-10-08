@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Styled Table with Headers</title>
+<style>
+table { width: 80%; margin: 20px auto; background-color: #f9f9f9; border: 2px solid #4CAF50; }
+th, td { border: 1px solid #4CAF50; padding: 12px; text-align: left; }
+th { background-color: #4CAF50; color: white; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+</style>
+</head>
+<body>
+<table id="tabel">
+<thead>
+<tr><th>Header 1</th><th>Header 2</th><th>Header 3</th>
+<th>Header 4</th><th>Header 5</th><th>Header 6</th></tr>
+</thead>
+<tbody>
+<script>
+const tB = document.querySelector('#tabel tbody');
+for (let i = 0; i < 15; i++) {
+const tr = document.createElement('tr');
+for (let j = 0; j < 6; j++) {
+const td = document.createElement('td');
+if (i === 0 && j === 0) td.rowSpan = 2;
+else if (i === 2 && j === 0) td.colSpan = 2;
+else if (i === 1 && j === 0 || i === 2 && j === 1) continue;
+td.textContent = `Baris ${i + 1}, Kolom ${j + 1}`;
+tr.appendChild(td);
+}
+tB.appendChild(tr);
+}
+</script>
+</tbody>
+</table>
+<form>
+NIM:<input type="text" name="nim"><br>
+Jenis Kelamin:<label><input type="radio" name="gender" value="L">L</label>
+<label><input type="radio" name="gender" value="P">P</label><br>
+Mata Kuliah:<select name="mata_kuliah">
+<option value="pemkom">Pemrograman Komputer 1</option>
+<option value="jarkom">Jaringan Komputer 1</option>
+<option value="pemweb">Pemrograman Web 1</option>
+<option value="sbd">Sistem Basis Data 1</option>
+<option value="matnum">Matematika Numerik</option>
+<option value="stat">Statistika</option>
+<option value="erp">Enterprise Resource Planning</option>
+<option value="dgm">Desain Grafis dan Multimedia</option>
+</select><br>
+Ruang:<div id="ruang"></div>
+<script>
+const rO = ['D4.3', 'D4.4', 'D4.5', 'D4.7', 'Labkom-1', 'Labkom-2', 'Lab-RnD'];
+const rD = document.getElementById('ruang');
+rO.forEach(v => {
+rD.innerHTML += `<label><input type="checkbox" name="ruang" value="${v}">${v}</label>`;
+});
+</script>
+Dosen:<input type="text" name="dosen"><br>
+Waktu:<select name="waktu" id="waktu"></select><br>
+<script>
+const s = document.getElementById('waktu');
+for (let h = 8; h < 18; h++) {
+for (let m = 0; m < 60; m += 50) {
+const time = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+s.add(new Option(time, time));
+}
+}
+</script>
+Kelas:<div id="kelas"></div>
+<script>
+const kO = ['3A', '3B', '3C', '3D'];
+const kD = document.getElementById('kelas');
+kO.forEach(v => {
+kD.innerHTML += `<label><input type="checkbox" name="kelas" value="${v}">${v}</label>`;
+});
+</script>
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
